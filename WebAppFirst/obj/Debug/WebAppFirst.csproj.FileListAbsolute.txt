@@ -76,7 +76,6 @@ C:\Users\sakli\source\repos\webappfirst\WebAppFirst\obj\Debug\WebAppFirst.csproj
 C:\Users\sakli\source\repos\webappfirst\WebAppFirst\obj\Debug\WebAppFirst.csproj.CopyComplete
 C:\Users\sakli\source\repos\webappfirst\WebAppFirst\obj\Debug\WebAppFirst.dll
 C:\Users\sakli\source\repos\webappfirst\WebAppFirst\obj\Debug\WebAppFirst.pdb
-C:\Users\sakli\source\repos\webappfirst\WebAppFirst\obj\Debug\WebAppFirst.csprojAssemblyReference.cache
 C:\Users\sakli\source\repos\webappfirst\WebAppFirst\bin\EntityFramework.dll
 C:\Users\sakli\source\repos\webappfirst\WebAppFirst\bin\EntityFramework.SqlServer.dll
 C:\Users\sakli\source\repos\webappfirst\WebAppFirst\bin\EntityFramework.xml

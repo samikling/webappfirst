@@ -18,6 +18,7 @@ namespace WebAppFirst.Models
         public Region()
         {
             this.Territories = new HashSet<Territories>();
+            this.Shippers = new HashSet<Shippers>();
         }
     
         public int RegionID { get; set; }
@@ -25,5 +26,7 @@ namespace WebAppFirst.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Territories> Territories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Shippers> Shippers { get; set; }
     }
 }

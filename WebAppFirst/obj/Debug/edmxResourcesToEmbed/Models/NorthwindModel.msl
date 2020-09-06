@@ -118,6 +118,7 @@
     <EntitySetMapping Name="Shippers">
       <EntityTypeMapping TypeName="NorthwindModel.Shippers">
         <MappingFragment StoreEntitySet="Shippers">
+          <ScalarProperty Name="RegionID" ColumnName="RegionID" />
           <ScalarProperty Name="ShipperID" ColumnName="ShipperID" />
           <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />

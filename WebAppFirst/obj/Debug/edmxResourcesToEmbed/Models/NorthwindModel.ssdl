@@ -130,6 +130,7 @@
     <Property Name="ShipperID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CompanyName" Type="nvarchar" MaxLength="40" Nullable="false" />
     <Property Name="Phone" Type="nvarchar" MaxLength="24" />
+    <Property Name="RegionID" Type="int" />
   </EntityType>
   <EntityType Name="Suppliers">
     <Key>
@@ -300,6 +301,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Shippers_Region">
+    <End Role="Region" Type="Self.Region" Multiplicity="0..1" />
+    <End Role="Shippers" Type="Self.Shippers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Region">
+        <PropertyRef Name="RegionID" />
+      </Principal>
+      <Dependent Role="Shippers">
+        <PropertyRef Name="RegionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Territories_Region">
     <End Role="Region" Type="Self.Region" Multiplicity="1" />
     <End Role="Territories" Type="Self.Territories" Multiplicity="*" />
@@ -373,6 +386,10 @@
     <AssociationSet Name="FK_Products_Suppliers" Association="Self.FK_Products_Suppliers">
       <End Role="Suppliers" EntitySet="Suppliers" />
       <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Shippers_Region" Association="Self.FK_Shippers_Region">
+      <End Role="Region" EntitySet="Region" />
+      <End Role="Shippers" EntitySet="Shippers" />
     </AssociationSet>
     <AssociationSet Name="FK_Territories_Region" Association="Self.FK_Territories_Region">
       <End Role="Region" EntitySet="Region" />

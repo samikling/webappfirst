@@ -23,8 +23,10 @@ namespace WebAppFirst.Models
         public int ShipperID { get; set; }
         public string CompanyName { get; set; }
         public string Phone { get; set; }
+        public Nullable<int> RegionID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
+        public virtual Region Region { get; set; }
     }
 }

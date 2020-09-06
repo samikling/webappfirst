@@ -27,6 +27,7 @@
         <AssociationConnector Association="NorthwindModel.FK_Territories_Region" ManuallyRouted="false" />
         <AssociationConnector Association="NorthwindModel.CustomerCustomerDemo" ManuallyRouted="false" />
         <AssociationConnector Association="NorthwindModel.EmployeeTerritories" ManuallyRouted="false" />
+        <AssociationConnector Association="NorthwindModel.FK_Shippers_Region" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
