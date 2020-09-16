@@ -35,6 +35,12 @@ namespace WebAppFirst.Controllers
         [ValidateAntiForgeryToken] //Katso https://go.microsoft.com/fwlink/?LinkId=317598
         public ActionResult Edit([Bind(Include = "ShipperID,CompanyName,Phone,RegionID")] Shippers shipper) //Tämä metodi tallentaa muutokset kantaan ja paulauttaa sivun Shippers.cshtml
         {
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            { 
             if (ModelState.IsValid)
             {
                 db.Entry(shipper).State = EntityState.Modified;
@@ -42,34 +48,56 @@ namespace WebAppFirst.Controllers
                 ViewBag.RegionID = new SelectList(db.Region, "RegionID", "RegionDescription",shipper.RegionID);
                 return RedirectToAction("Index");
             }
+            }
             return View(shipper);
         }
         public ActionResult Create() //Tätä metodia kutsutaan listanäkymästä ja tämä metodi näyttää luontinäytön Create.cshtml
         {
-            ViewBag.RegionID = new SelectList(db.Region, "RegionID", "RegionDescription");
-            return View();
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                ViewBag.RegionID = new SelectList(db.Region, "RegionID", "RegionDescription");
+                return View();
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ShipperID,CompanyName,Phone,RegionID")] Shippers shipper) //Tätä metodia kutsutaan luontinäytöltä, kun klikataan "Save".Metodi lisää uuden rivin tiedot kantaan.
         {
-            if (ModelState.IsValid)
+            if (Session["UserName"] == null)
             {
-                db.Shippers.Add(shipper);
-
-                db.SaveChanges();
-                ViewBag.RegionID = new SelectList(db.Region, "RegionID", "RegionDescription", shipper.RegionID);
-
-                return RedirectToAction("Index");
+                return RedirectToAction("login", "home");
             }
-            return View(shipper);
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Shippers.Add(shipper);
+
+                    db.SaveChanges();
+                    ViewBag.RegionID = new SelectList(db.Region, "RegionID", "RegionDescription", shipper.RegionID);
+
+                    return RedirectToAction("Index");
+                }
+                return View(shipper);
+            }
         }
         public ActionResult Delete(int? id)
         {
-            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Shippers shippers = db.Shippers.Find(id);
-            if (shippers == null) return HttpNotFound();
-            return View(shippers);
+            if (Session["UserName"] == null)
+            {
+                return RedirectToAction("login", "home");
+            }
+            else
+            {
+                if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Shippers shippers = db.Shippers.Find(id);
+                if (shippers == null) return HttpNotFound();
+                return View(shippers);
+            }
         }
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

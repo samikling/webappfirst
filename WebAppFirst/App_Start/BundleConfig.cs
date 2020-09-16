@@ -24,7 +24,7 @@ namespace WebAppFirst
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrapsimplex.css",
-                      "~/Content/site.css"));
+                      "~/Content/Site.css"));
         }
     }
 }

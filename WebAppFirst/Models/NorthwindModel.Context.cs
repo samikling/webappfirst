@@ -36,5 +36,6 @@ namespace WebAppFirst.Models
         public virtual DbSet<Shippers> Shippers { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
         public virtual DbSet<Territories> Territories { get; set; }
+        public virtual DbSet<Logins> Logins { get; set; }
     }
 }

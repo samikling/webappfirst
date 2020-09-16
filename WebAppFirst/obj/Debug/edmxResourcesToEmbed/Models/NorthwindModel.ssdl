@@ -71,6 +71,14 @@
     <Property Name="EmployeeID" Type="int" Nullable="false" />
     <Property Name="TerritoryID" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
+  <EntityType Name="Logins">
+    <Key>
+      <PropertyRef Name="LoginId" />
+    </Key>
+    <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PassWord" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <EntityType Name="Order Details">
     <Key>
       <PropertyRef Name="OrderID" />
@@ -115,6 +123,7 @@
     <Property Name="UnitsOnOrder" Type="smallint" />
     <Property Name="ReorderLevel" Type="smallint" />
     <Property Name="Discontinued" Type="bit" Nullable="false" />
+    <Property Name="ImageLink" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="Region">
     <Key>
@@ -332,6 +341,7 @@
     <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmployeeTerritories" EntityType="Self.EmployeeTerritories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Logins" EntityType="Self.Logins" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order Details" EntityType="Self.Order Details" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />

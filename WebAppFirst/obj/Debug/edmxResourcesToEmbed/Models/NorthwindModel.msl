@@ -94,6 +94,7 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="NorthwindModel.Products">
         <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
@@ -168,5 +169,14 @@
         <ScalarProperty Name="TerritoryID" ColumnName="TerritoryID" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="Logins">
+      <EntityTypeMapping TypeName="NorthwindModel.Logins">
+        <MappingFragment StoreEntitySet="Logins">
+          <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

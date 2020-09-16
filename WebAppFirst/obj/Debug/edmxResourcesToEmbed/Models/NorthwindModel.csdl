@@ -116,6 +116,7 @@
     <NavigationProperty Name="Categories" Relationship="Self.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
     <NavigationProperty Name="Order_Details" Relationship="Self.FK_Order_Details_Products" FromRole="Products" ToRole="Order_Details" />
     <NavigationProperty Name="Suppliers" Relationship="Self.FK_Products_Suppliers" FromRole="Products" ToRole="Suppliers" />
+    <Property Name="ImageLink" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Region">
     <Key>
@@ -341,6 +342,7 @@
       <End Role="Region" EntitySet="Region" />
       <End Role="Shippers" EntitySet="Shippers" />
     </AssociationSet>
+    <EntitySet Name="Logins" EntityType="NorthwindModel.Logins" />
   </EntityContainer>
   <Association Name="FK_Shippers_Region">
     <End Type="NorthwindModel.Region" Role="Region" Multiplicity="0..1" />
@@ -354,4 +356,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Logins">
+    <Key>
+      <PropertyRef Name="LoginId" />
+    </Key>
+    <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PassWord" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>
