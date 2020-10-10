@@ -61,4 +61,7 @@ C:\Users\sakli\source\repos\webappfirst\WebAppFirst\bin\roslyn\System.Buffers.dl
 C:\Users\sakli\source\repos\webappfirst\WebAppFirst\bin\roslyn\System.Memory.dll
 C:\Users\sakli\source\repos\webappfirst\WebAppFirst\bin\roslyn\System.Numerics.Vectors.dll
 C:\Users\sakli\source\repos\webappfirst\WebAppFirst\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
-C:\Users\sakli\source\repos\webappfirst\WebAppFirst\obj\Debug\WebAppFirst.csprojAssemblyReference.cache
+C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\Microsoft.Configuration.ConfigurationBuilders.Base.dll
+C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.dll
+C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\Microsoft.Configuration.ConfigurationBuilders.Base.xml
+C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.xml
