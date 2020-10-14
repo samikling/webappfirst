@@ -65,3 +65,4 @@ C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\Microsoft.Configuration.
 C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.dll
 C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\Microsoft.Configuration.ConfigurationBuilders.Base.xml
 C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.xml
+C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\obj\Debug\WebAppFirst.csprojAssemblyReference.cache
