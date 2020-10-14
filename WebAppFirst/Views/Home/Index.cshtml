@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @{
     ViewBag.Title = "Mvc Web App";
 }
@@ -6,12 +7,14 @@
 <div class="jumbotron">
     <h1>Northwind demo app</h1>
     <p class="lead">Tämä on Northwind-sovelluksen working demo.</p>
-    @for (int i = 0; i < 10; i++)
-    {
-        <p>@i</p>
-    }
+    <p><a href="https://www.asp.net" class="btn-primary btn-lg"><img src="~/Icons/building.svg" alt="ASP.NET" width="32" height="32" title="ASP.NET">ASP.NET-sivut</a></p>
+    <p><a href="https://www.asp.net"> <img src="~/Icons/building.svg" alt="ASP.NET" width="32" height="32" title="ASP.NET"></a></p>
 
-<p>Nyt on @DateTime.Now</p>
-<p>Nyt on @DateTime.Now.ToString(new CultureInfo("en-US"))</p>
+    <p><a href="https://www.asp.net" class="btn-primary btn-lg fa fa-car">ASP.NET-sivut</a></p>
+    <p><a href="https://www.asp.net" class="fa fa-car" title="ASP.NET"></a></p>
+
+
+    <p>Nyt on @DateTime.Now</p>
+    <p>Nyt on @DateTime.Now.ToString(new CultureInfo("en-US"))</p>
 </div>
 
