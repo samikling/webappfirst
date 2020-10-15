@@ -46,9 +46,9 @@
                 <td>@prod.UnitsInStock</td>
                 <td>@prod.UnitsOnOrder</td>
                 <td>@prod.ImageLink</td>
-                <td><button class="btn btn-success" onclick='naytaValittuTuote("@prod.ProductName")'>Muokkaa</button></td>
-                <td><button class="btn btn-primary showProductId" data-productID="@prod.ProductID">Muokkaa</button></td>
-                <td><button class="btn btn-danger" data-productID="@prod.ProductID" id="poistaTuote">Poista</button></td>
+                <td><img src="~/Icons/eye-fill.svg" alt="Näytä" width="32" height="32" title="Näytä"  onclick='naytaValittuTuote("@prod.ProductName")' /></td>
+                <td><img class=" showProductId" src="~/Icons/pen-fill.svg" alt="Muokkaa" width="32" height="32" title="Muokkaa" data-productID="@prod.ProductID"></td>
+                <td><img src="~/Icons/trash-fill.svg" alt="Poista" width="32" height="32" title="Poista" data-productID="@prod.ProductID" id="poistaTuote"></td>
 
             </tr>
         }
