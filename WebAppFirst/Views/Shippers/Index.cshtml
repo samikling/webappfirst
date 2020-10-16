@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create", "Shippers")"><img src="~/Icons/file-plus-fill.svg" height="32" width="32" title="Create new" alt="New" /></a>
 </p>
 <table class="table table-responsive">
     <tr>
@@ -31,9 +31,9 @@
         </td>
         <td>@Html.DisplayFor(modelItem => item.Region.RegionDescription)</td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ShipperID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ShipperID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ShipperID })
+            <a href="@Url.Action("Edit", "Shippers", new { id=item.ShipperID })"><img src="~/Icons/pen-fill.svg" title="Edit" alt="Edit"></a> |
+            <a href="@Url.Action("Details", "Shippers", new { id=item.ShipperID })"><img src="~/Icons/eye-fill.svg" title="Edit" alt="Edit"></a> |
+            <a href="@Url.Action("Delete", "Shippers", new { id=item.ShipperID })"><img src="~/Icons/trash-fill.svg" title="Edit" alt="Edit"></a>
         </td>
     </tr>
 }
