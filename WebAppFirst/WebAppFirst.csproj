@@ -1470,7 +1470,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Map.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\Index3.cshtml" />
     <Content Include="Views\Shippers\Index.cshtml" />
     <Content Include="Views\Shippers\Edit.cshtml" />
     <Content Include="Views\Shippers\Create.cshtml" />
@@ -1489,6 +1489,7 @@
     <Content Include="Views\Products\Index2.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -65,8 +65,8 @@ C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\Microsoft.Configuration.
 C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.dll
 C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\Microsoft.Configuration.ConfigurationBuilders.Base.xml
 C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.xml
-C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\obj\Debug\WebAppFirst.csprojAssemblyReference.cache
 C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\PagedList.dll
 C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\PagedList.Mvc.dll
 C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\PagedList.xml
 C:\Users\sakli\Source\Repos\webappfirst\WebAppFirst\bin\PagedList.Mvc.xml
+C:\Users\sakli\source\repos\webappfirst\WebAppFirst\obj\Debug\WebAppFirst.csprojAssemblyReference.cache
