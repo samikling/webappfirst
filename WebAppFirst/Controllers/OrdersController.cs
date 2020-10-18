@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebAppFirst.Models;
-
+using PagedList;
 namespace WebAppFirst.Controllers
 {
     public class OrdersController : Controller
@@ -16,12 +16,21 @@ namespace WebAppFirst.Controllers
 
         // GET: Orders
         // TODO: Lisää toiminnallisuudet HOKS!!! Haettava tieto on Shippers taulussa ja Orders tauluissa Company Name! ShipName hämää.....
-        public ActionResult Index(string sortOrder,string searchString1)
-        {
+        public ActionResult Index(string sortOrder,string searchString1, string currentFilter1, int? page, int? pagesize)
+        {   //Lajittelu
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CompanyNameSortParm = String.IsNullOrEmpty(sortOrder) ? "companyname_desc" : "";
             ViewBag.OrderDateSortParm = sortOrder == "OrderDate" ? "orderdate_desc" : "OrderPrice";
-
+            //Sivutus
+            if (searchString1 != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString1 = currentFilter1;
+            }
+            //Lajittelu
             var orders = from o in db.Orders.Include(o => o.Customers).Include(o => o.Employees).Include(o => o.Shippers)
                          select o;
             if (!String.IsNullOrEmpty(searchString1))
@@ -46,7 +55,11 @@ namespace WebAppFirst.Controllers
                 
             }
 
-            return View(orders);
+            //Sivutus
+            int pageSize = (pagesize ?? 10);
+            int pageNumber = (page ?? 1);
+
+            return View(orders.ToPagedList(pageNumber,pageSize));
         }
 
         // GET: Orders/Details/5
