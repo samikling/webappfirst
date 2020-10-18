@@ -36,7 +36,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Tilaus pvm", "Index", new { sortOrder = ViewBag.OrderDateSortParm,currentFilter1 = ViewBag.currentFilter1 })@*(model => model.OrderDate)*@
+            @Html.ActionLink("Tilaus pvm", "Index", new { sortOrder = ViewBag.OrderDateSortParm,currentFilter1 = ViewBag.currentFilter1, currentShipperCategory = ViewBag.currentShipperCategory })@*(model => model.OrderDate)*@
         </th>
         <th>
             RequiredDate
@@ -45,7 +45,7 @@
             ShippedDate
         </th>
         <th>
-            @Html.ActionLink("Rahtari", "Index",new { sortOrder = ViewBag.CompanyNameSortParm, currentFilter1 = ViewBag.currentFilter1 })    @*@Html.DisplayNameFor(model => model.Shippers.CompanyName)*@
+            @Html.ActionLink("Rahtari", "Index",new { sortOrder = ViewBag.CompanyNameSortParm, currentFilter1 = ViewBag.currentFilter1, currentShipperCategory = ViewBag.currentShipperCategory })    @*@Html.DisplayNameFor(model => model.Shippers.CompanyName)*@
         </th>
         <th>
             Freight
@@ -130,4 +130,4 @@
 
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter1 = ViewBag.currentFilter1}))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter1 = ViewBag.currentFilter1, currentShipperCategory = ViewBag.currentShipperCategory }))

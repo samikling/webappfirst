@@ -16,7 +16,7 @@ namespace WebAppFirst.Controllers
 
         // GET: Orders
         // TODO: Lisää toiminnallisuudet HOKS!!! Haettava tieto on Shippers taulussa ja Orders tauluissa Company Name! ShipName hämää.....
-        public ActionResult Index(string sortOrder,string searchString1, string currentFilter1, int? page, int? pagesize,string ShipperCategory)
+        public ActionResult Index(string sortOrder,string searchString1, string currentFilter1, int? page, int? pagesize,string ShipperCategory, string currentShipperCategory)
         {   //Lajittelu
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CompanyNameSortParm = String.IsNullOrEmpty(sortOrder) ? "companyname_desc" : "";
@@ -30,6 +30,22 @@ namespace WebAppFirst.Controllers
             {
                 searchString1 = currentFilter1;
             }
+
+            ViewBag.currentFilter1 = searchString1;
+            //Kategoriahaku muistiin
+            if ((ShipperCategory != null) && (ShipperCategory != "0"))
+            {
+                page = 1;
+            }
+            else
+            {
+                ShipperCategory = currentShipperCategory;
+            }
+
+            ViewBag.currentShipperCategory = ShipperCategory;
+
+
+
             //Dropdownbox
             List<Shippers> lstShippers = new List<Shippers>();
 
@@ -51,6 +67,21 @@ namespace WebAppFirst.Controllers
                 lstShippers.Add(yksiShipper);
             }
             ViewBag.ShipperID = new SelectList(lstShippers, "ShipperID", "ShipperIDShipperName", ShipperCategory);
+
+            //Dropdownboxjatkuu...Tarvitaanko???
+            //NorthwindEntities db = new NorthwindEntities();
+            var rahtarit = from s in db.Shippers
+                         select s;
+            if (!String.IsNullOrEmpty(searchString1))
+            {
+                rahtarit = rahtarit.Where(s => s.CompanyName.Contains(searchString1));
+            }
+            if (!String.IsNullOrEmpty(ShipperCategory) && (ShipperCategory != "0")) 
+            {
+                int para = int.Parse(ShipperCategory);
+                rahtarit = rahtarit.Where(p => p.ShipperID == para);
+            }
+
 
             //Lajittelu
             var orders = from o in db.Orders.Include(o => o.Customers).Include(o => o.Employees).Include(o => o.Shippers)
@@ -75,7 +106,27 @@ namespace WebAppFirst.Controllers
                 }
                 orders = orders.Where(s => s.Shippers.CompanyName.Contains(searchString1));
             }
-            else
+            else if (!String.IsNullOrEmpty(ShipperCategory) && (ShipperCategory != "0"))//Jos käytössä rajaus käytetään sitä ja lajitellaan.
+            {
+                int para = int.Parse(ShipperCategory);
+                switch (sortOrder)
+                {
+                    case "companyname_desc":
+                        orders = orders.Where(s => s.Shippers.ShipperID == para).OrderByDescending(s => s.Shippers.CompanyName);
+                        break;
+                    case "OrderDate":
+                        orders = orders.Where(s => s.Shippers.ShipperID == para).OrderBy(o => o.OrderDate); //Voi vaatia muutoksen s:ksi.
+                        break;
+                    case "OrderDate_desc":
+                        orders = orders.Where(s => s.Shippers.ShipperID == para).OrderByDescending(o => o.OrderDate);
+                        break;
+                    default:
+                        orders = orders.Where(s => s.Shippers.ShipperID == para).OrderBy(s => s.Shippers.CompanyName);
+                        break;
+
+                }
+            }
+            else //Ei hakuehtoa
             {
                 switch (sortOrder)
                 {
