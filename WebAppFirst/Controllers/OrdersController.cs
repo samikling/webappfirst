@@ -15,11 +15,16 @@ namespace WebAppFirst.Controllers
         private NorthwindEntities db = new NorthwindEntities();
 
         // GET: Orders
-        // TODO: Lisää toiminnallisuudet
-        public ActionResult Index()
+        // TODO: Lisää toiminnallisuudet HOKS!!! Haettava tieto on Shippers taulussa ja Orders tauluissa Company Name! ShipName hämää.....
+        public ActionResult Index(string searchString1)
         {
-            var orders = db.Orders.Include(o => o.Customers).Include(o => o.Employees).Include(o => o.Shippers);
-            return View(orders.ToList());
+            var orders = from o in db.Orders.Include(o => o.Customers).Include(o => o.Employees).Include(o => o.Shippers)
+                         select o;
+            if (!String.IsNullOrEmpty(searchString1))
+            {
+                orders = orders.Where(s => s.ShipName.Contains(searchString1));
+            }
+            return View(orders);
         }
 
         // GET: Orders/Details/5
