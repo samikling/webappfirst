@@ -1,6 +1,18 @@
 ﻿@model PagedList.IPagedList<WebAppFirst.Models.Orders>
 @using PagedList.Mvc;
+
+@section scripts {
+    <script type="text/javascript">
+        $("#singleSelectedShipperID").on("change", function () {
+            var selValue = $("#singleSelectedShipperID").val();
+            document.getElementById("ShipperCategory").value = selValue;
+        });
+    </script>
+    }
+
+
 <link href="~/Content/PagedList.css" rel="stylesheet"type="text/css" />
+
 @{
     ViewBag.Title = "Index";
 }
@@ -15,13 +27,16 @@
 <div class="input-group">
     <p class="px-1">@Html.Label("Etsi nimellä: ")</p>
     <p class="px-1">@Html.TextBox("SearchString1", ViewBag.currentFilter1 as string, new { @class = "form-control" })</p>
+    <p class="px-1">@Html.Label("Etsi Rahtarin perusteella: ")</p>
+    <p class="px-1">@Html.Hidden("ShipperCategory", ViewBag.currentFilter1 as string, new { @id = "ShipperCategory", @class = "form-control" })</p>
+    <p class="px-1">@Html.DropDownList("ShipperID",null,htmlAttributes:new { @id = "singleSelectedShipperID", @class = "form-control" }) </p>"
     <p class="px-1"><input type="submit" value="Search" class="form-control" /></p>
 </div>
 }
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Tilaus pvm", "Index", new { sortOrder = ViewBag.OrderDateSortParm })@*(model => model.OrderDate)*@
+            @Html.ActionLink("Tilaus pvm", "Index", new { sortOrder = ViewBag.OrderDateSortParm,currentFilter1 = ViewBag.currentFilter1 })@*(model => model.OrderDate)*@
         </th>
         <th>
             RequiredDate
@@ -30,7 +45,7 @@
             ShippedDate
         </th>
         <th>
-            @Html.ActionLink("Rahtari", "Index",new { sortOrder = ViewBag.CompanyNameSortParm })    @*@Html.DisplayNameFor(model => model.Shippers.CompanyName)*@
+            @Html.ActionLink("Rahtari", "Index",new { sortOrder = ViewBag.CompanyNameSortParm, currentFilter1 = ViewBag.currentFilter1 })    @*@Html.DisplayNameFor(model => model.Shippers.CompanyName)*@
         </th>
         <th>
             Freight

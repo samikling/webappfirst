@@ -16,11 +16,11 @@ namespace WebAppFirst.Controllers
 
         // GET: Orders
         // TODO: Lisää toiminnallisuudet HOKS!!! Haettava tieto on Shippers taulussa ja Orders tauluissa Company Name! ShipName hämää.....
-        public ActionResult Index(string sortOrder,string searchString1, string currentFilter1, int? page, int? pagesize)
+        public ActionResult Index(string sortOrder,string searchString1, string currentFilter1, int? page, int? pagesize,string ShipperCategory)
         {   //Lajittelu
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CompanyNameSortParm = String.IsNullOrEmpty(sortOrder) ? "companyname_desc" : "";
-            ViewBag.OrderDateSortParm = sortOrder == "OrderDate" ? "orderdate_desc" : "OrderPrice";
+            ViewBag.OrderDateSortParm = sortOrder == "OrderDate" ? "orderdate_desc" : "OrderDate";
             //Sivutus
             if (searchString1 != null)
             {
@@ -30,29 +30,70 @@ namespace WebAppFirst.Controllers
             {
                 searchString1 = currentFilter1;
             }
+            //Dropdownbox
+            List<Shippers> lstShippers = new List<Shippers>();
+
+            var shipperList = from cat in db.Shippers
+                              select cat;
+
+            Shippers tyhjaShippers = new Shippers();
+            tyhjaShippers.ShipperID = 0;
+            tyhjaShippers.CompanyName = "";
+            tyhjaShippers.ShipperIDShipperName = "";
+            lstShippers.Add(tyhjaShippers);
+
+            foreach ( Shippers shipper in shipperList)
+            {
+                Shippers yksiShipper = new Shippers();
+                yksiShipper.ShipperID = shipper.ShipperID;
+                yksiShipper.CompanyName = shipper.CompanyName;
+                yksiShipper.ShipperIDShipperName = shipper.ShipperID.ToString() + " - " + shipper.CompanyName;
+                lstShippers.Add(yksiShipper);
+            }
+            ViewBag.ShipperID = new SelectList(lstShippers, "ShipperID", "ShipperIDShipperName", ShipperCategory);
+
             //Lajittelu
             var orders = from o in db.Orders.Include(o => o.Customers).Include(o => o.Employees).Include(o => o.Shippers)
                          select o;
             if (!String.IsNullOrEmpty(searchString1))
             {
+                switch (sortOrder)
+                {
+                    case "companyname_desc":
+                        orders = orders.Where(s =>s.Shippers.CompanyName.Contains(searchString1)).OrderByDescending(s => s.Shippers.CompanyName);
+                        break;
+                    case "OrderDate":
+                        orders = orders.Where(s => s.Shippers.CompanyName.Contains(searchString1)).OrderBy(o => o.OrderDate); //Voi vaatia muutoksen s:ksi.
+                        break;
+                    case "OrderDate_desc":
+                        orders = orders.Where(s => s.Shippers.CompanyName.Contains(searchString1)).OrderByDescending(o => o.OrderDate);
+                        break;
+                    default:
+                        orders = orders.Where(s => s.Shippers.CompanyName.Contains(searchString1)).OrderBy(s => s.Shippers.CompanyName);
+                        break;
+
+                }
                 orders = orders.Where(s => s.Shippers.CompanyName.Contains(searchString1));
             }
-
-            switch (sortOrder)
+            else
             {
-                case "companyname_desc":
-                    orders = orders.OrderByDescending(s => s.Shippers.CompanyName);
-                    break;
-                case "OrderDate":
-                    orders = orders.OrderBy(o => o.OrderDate); //Voi vaatia muutoksen s:ksi.
-                    break;
-                case "OrderDate_desc":
-                    orders = orders.OrderByDescending(o => o.OrderDate);
-                    break;
-                default:
-                    orders = orders.OrderBy(s => s.Shippers.CompanyName);
-                    break;
+                switch (sortOrder)
+                {
+                    case "companyname_desc":
+                        orders = orders.OrderByDescending(s => s.Shippers.CompanyName);
+                        break;
+                    case "OrderDate":
+                        orders = orders.OrderBy(o => o.OrderDate); //Voi vaatia muutoksen s:ksi.
+                        break;
+                    case "OrderDate_desc":
+                        orders = orders.OrderByDescending(o => o.OrderDate);
+                        break;
+                    default:
+                        orders = orders.OrderBy(s => s.Shippers.CompanyName);
+                        break;
                 
+                }
+
             }
 
             //Sivutus
