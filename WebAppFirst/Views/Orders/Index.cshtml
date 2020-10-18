@@ -27,9 +27,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ShippedDate)
+        </th>
         <th>
             @Html.ActionLink("Rahtari", "Index",new { sortOrder = ViewBag.CompanyNameSortParm })    @*@Html.DisplayNameFor(model => model.Shippers.CompanyName)*@
-        </th>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Freight)
@@ -73,6 +73,9 @@
             @Html.DisplayFor(modelItem => item.ShippedDate)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Shippers.CompanyName)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Freight)
         </td>
         <td>
@@ -98,9 +101,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Employees.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Shippers.CompanyName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |

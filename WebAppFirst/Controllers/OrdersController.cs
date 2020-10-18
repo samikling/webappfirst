@@ -16,14 +16,36 @@ namespace WebAppFirst.Controllers
 
         // GET: Orders
         // TODO: Lisää toiminnallisuudet HOKS!!! Haettava tieto on Shippers taulussa ja Orders tauluissa Company Name! ShipName hämää.....
-        public ActionResult Index(string searchString1)
+        public ActionResult Index(string sortOrder,string searchString1)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CompanyNameSortParm = String.IsNullOrEmpty(sortOrder) ? "companyname_desc" : "";
+            ViewBag.OrderDateSortParm = sortOrder == "OrderDate" ? "orderdate_desc" : "OrderPrice";
+
             var orders = from o in db.Orders.Include(o => o.Customers).Include(o => o.Employees).Include(o => o.Shippers)
                          select o;
             if (!String.IsNullOrEmpty(searchString1))
             {
-                orders = orders.Where(s => s.ShipName.Contains(searchString1));
+                orders = orders.Where(s => s.Shippers.CompanyName.Contains(searchString1));
             }
+
+            switch (sortOrder)
+            {
+                case "companyname_desc":
+                    orders = orders.OrderByDescending(s => s.Shippers.CompanyName);
+                    break;
+                case "OrderDate":
+                    orders = orders.OrderBy(o => o.OrderDate); //Voi vaatia muutoksen s:ksi.
+                    break;
+                case "OrderDate_desc":
+                    orders = orders.OrderByDescending(o => o.OrderDate);
+                    break;
+                default:
+                    orders = orders.OrderBy(s => s.Shippers.CompanyName);
+                    break;
+                
+            }
+
             return View(orders);
         }
 
