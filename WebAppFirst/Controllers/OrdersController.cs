@@ -15,6 +15,7 @@ namespace WebAppFirst.Controllers
         private NorthwindEntities db = new NorthwindEntities();
 
         // GET: Orders
+        // TODO: Lisää toiminnallisuudet
         public ActionResult Index()
         {
             var orders = db.Orders.Include(o => o.Customers).Include(o => o.Employees).Include(o => o.Shippers);
