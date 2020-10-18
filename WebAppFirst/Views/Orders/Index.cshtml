@@ -20,13 +20,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.OrderDate)
+            @Html.ActionLink("Tilaus pvm", "Index", new { sortOrder = ViewBag.OrderDateSortParm })@*(model => model.OrderDate)*@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.RequiredDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ShippedDate)
+        <th>
+            @Html.ActionLink("Rahtari", "Index",new { sortOrder = ViewBag.CompanyNameSortParm })    @*@Html.DisplayNameFor(model => model.Shippers.CompanyName)*@
+        </th>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Freight)
@@ -44,19 +47,16 @@
             @Html.DisplayNameFor(model => model.ShipRegion)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Customers.CompanyName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ShipPostalCode)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ShipCountry)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Customers.CompanyName)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Employees.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Shippers.CompanyName)
         </th>
         <th></th>
     </tr>
