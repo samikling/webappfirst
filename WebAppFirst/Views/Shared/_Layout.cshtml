@@ -3,45 +3,47 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - versio 0.5</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/Home/Index">EvilDB Corp.ltd (@ViewBag.LoggedStatus)</a>
+        <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/Home/Index">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-link" href="/Orders/Index">Orders <span class="sr-only">(current)</span></a>
-                    <a class="nav-link" href="/Home/Login">Login<span class="sr-only">(current)</span></a>
-                </li>
+                <li class="nav-item active"><a class="nav-link" href="~/home/index">Home <span class="sr-only">(current)</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="~/home/Login">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="~/home/Logout">Logout</a></li>
+                <li class="nav-item"><a class="nav-link" href="~/home/About">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="~/home/Map">Map</a></li>
+                <li class="nav-item"><a class="nav-link" href="~/Products/index">Tuotteet</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Company Info</a>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                     <div class="dropdown-menu" style="">
-                        <a class="dropdown-item" href="/Home/About">About</a>
-                        <a class="dropdown-item" href="/Home/Contact">Contact</a>
-                        <a class="dropdown-item" href="/Home/Map">Map</a>
-
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Database</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/Products">Products</a>
-                        <a class="dropdown-item" href="/Shippers">Shippers</a>
+                        <a class="dropdown-item" href="~/Products/index">Tuotteet</a>
+                        <a class="dropdown-item" href="~/Orders/index">Tilaukset</a>
+                        <a class="dropdown-item" href="~/Products/prodcards">Tuotekortit</a>
+                        <a class="dropdown-item" href="~/Employees/index">Työntekijät</a>
+                        <a class="dropdown-item" href="~/Shippers/index">Rahtarit</a>
+                        <a class="dropdown-item" href="~/Contacts/index">Kontaktihlöt</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="https://www.yle.fi">Ylen sivut</a>
                     </div>
                 </li>
             </ul>
 
         </div>
     </nav>
-    <div class="container body-content">
+
+
+    @*<div class="container body-content">*@
+    <div class="container-fluid">
         @RenderBody()
         <hr />
         <footer class="oma-footer">
@@ -63,22 +65,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
-
-@*<script>
-    if (LoggedUser != null) {
-        ViewBag.LoginMessage = "Successfull login";
-        ViewBag.LoggedStatus = "In";
-        Session["UserName"] = LoggedUser.UserName;
-        return RedirectToAction("Index", "Home"); //Määritellään mihin kirjautuminen johtaa --> Home/Index
-    }
-    else {
-        ViewBag.LoginMessage = "Login unsuccessfull";
-        ViewBag.LoggedStatus = "Out";
-        LoginModel.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana.";
-        return View("Login", LoginModel);
-    }
-</script>*@
-
 </body>
 </html>
