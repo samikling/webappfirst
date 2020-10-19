@@ -44,8 +44,20 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Northwind-sovellus Working Demo</p>
+        <footer class="oma-footer">
+            @using System.Globalization
+            @{
+                string loggausInfo = "";
+                if (Session["UserName"] == null)
+                {
+                    loggausInfo = "Et ole kirjautunut järjestelmään";
+                }
+                else
+                {
+                    loggausInfo = "Olet kirjatunut käyttäjänä: " + Session["UserName"];
+                }
+            }
+            <p>&copy; Careeria Northwind-sovellus, @loggausInfo, tänään on @DateTime.Today.ToString("D", CultureInfo.CreateSpecificCulture("fi-FI"))</p>
         </footer>
     </div>
 
