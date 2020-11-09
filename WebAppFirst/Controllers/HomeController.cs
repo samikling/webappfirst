@@ -45,6 +45,7 @@ namespace WebAppFirst.Controllers
         }
         public ActionResult Index()
         {
+            ViewBag.LoginError = 0;//Ei virhettä
             return View();
         }
 

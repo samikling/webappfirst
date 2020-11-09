@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using WebAppFirst.Models;
 using PagedList;
+using WebAppFirst.ViewModels;
+using System.Runtime.Remoting.Messaging;
+
 namespace WebAppFirst.Controllers
 {
     public class OrdersController : Controller
@@ -16,6 +19,54 @@ namespace WebAppFirst.Controllers
 
         // GET: Orders
         // TODO: Lisää toiminnallisuudet HOKS!!! Haettava tieto on Shippers taulussa ja Orders tauluissa Company Name! ShipName hämää.....
+        public ActionResult OrderSummary()
+        {
+            var orderSummary = from o in db.Orders
+                               join od in db.Order_Details on o.OrderID equals od.OrderID
+                               join p in db.Products on od.ProductID equals p.ProductID
+                               join c in db.Categories on p.CategoryID equals c.CategoryID
+                               //where lause
+                               //orderby lause
+                               select new OrderSummaryData
+                               {
+                                   OrderID = (int)o.OrderID,
+                                   //CustomerID = o.CustomerID,
+                                   EmployeeID = (int)o.EmployeeID,
+                                   OrderDate = (DateTime)o.OrderDate,
+                                   RequiredDate = (DateTime)o.RequiredDate,
+                                   ShippedDate = (DateTime)o.ShippedDate,
+                                   ShipVia = (int)o.ShipVia,
+                                   Freight = (float)o.Freight,
+                                   ShipName = o.ShipName,
+                                   ShipAddress = o.ShipAddress,
+                                   ShipCity = o.ShipCity,
+                                   ShipRegion = o.ShipRegion,
+                                   ShipPostalCode = o.ShipPostalCode,
+                                   ShipCountry = o.ShipCountry,
+                                   ProductID = p.ProductID,
+                                   UnitPrice = (int)p.UnitPrice,
+                                   Quantity = (int)od.Quantity,
+                                   Discount = (float)od.Discount,
+                                   ProductName = p.ProductName,
+                                   SupplierID = (int)p.SupplierID,
+                                   CategoryID = (int)c.CategoryID,
+                                   QuantityPerUnit = p.QuantityPerUnit,
+                                   UnitsInStock = (int)p.UnitsInStock,
+                                   UnitsOnOrder = (int)p.UnitsOnOrder,
+                                   ReorderLevel = (int)p.ReorderLevel,
+                                   //Discontinued = (byte)p.Discontinued,
+                                   ImageLink = p.ImageLink,
+                                   CategoryName = c.CategoryName,
+                                   Description = c.Description,
+                                   //Picture = (Image)c.Picture
+
+
+                                   
+
+                               };
+            return View(orderSummary);
+        }
+
         public ActionResult Index(string sortOrder,string searchString1, string currentFilter1, int? page, int? pagesize,string ShipperCategory, string currentShipperCategory)
         {   //Lajittelu
             ViewBag.CurrentSort = sortOrder;
