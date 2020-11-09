@@ -30,7 +30,7 @@ namespace WebAppFirst.Controllers
                                select new OrderSummaryData
                                {
                                    OrderID = (int)o.OrderID,
-                                   //CustomerID = o.CustomerID,
+                                   CustomerID = o.CustomerID,
                                    EmployeeID = (int)o.EmployeeID,
                                    OrderDate = (DateTime)o.OrderDate,
                                    RequiredDate = (DateTime)o.RequiredDate,
@@ -54,7 +54,7 @@ namespace WebAppFirst.Controllers
                                    UnitsInStock = (int)p.UnitsInStock,
                                    UnitsOnOrder = (int)p.UnitsOnOrder,
                                    ReorderLevel = (int)p.ReorderLevel,
-                                   //Discontinued = (byte)p.Discontinued,
+                                   Discontinued = p.Discontinued,
                                    ImageLink = p.ImageLink,
                                    CategoryName = c.CategoryName,
                                    Description = c.Description,
