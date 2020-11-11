@@ -17,6 +17,7 @@ namespace WebAppFirst.Controllers
     {
         private NorthwindEntities db = new NorthwindEntities();
         //Adding one test line to test the functionaliti of the gitignore file that was added.
+        //One more line for testing purposes.
         // GET: Orders
         // TODO: Lisää toiminnallisuudet HOKS!!! Haettava tieto on Shippers taulussa ja Orders tauluissa Company Name! ShipName hämää.....
         public ActionResult OrderSummary()
