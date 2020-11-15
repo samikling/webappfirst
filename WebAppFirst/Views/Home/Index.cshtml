@@ -1,7 +1,4 @@
-﻿@model WebAppFirst.Models.Logins
-
-
-@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
@@ -21,68 +18,17 @@
 <div class="jumbotron">
     <h2>Minun ensimmäinen ASP.NET-sovellus</h2>
     @*BS4/SVG -ikonit*@
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg"><img src="~/Icons/star-fill.svg" alt="ASP.NET" width="32" height="32" title="ASP.NET"> ASP.NET-sivut &raquo;</a></p>
-    <p><a href="https://asp.net"><img src="~/Icons/star-fill.svg" alt="ASP.NET" width="32" height="32" title="ASP.NET"></a></p>
+    @*<p><a href="https://asp.net" class="btn btn-primary btn-lg"><img src="~/Icons/star-fill.svg" alt="ASP.NET" width="32" height="32" title="ASP.NET"> ASP.NET-sivut &raquo;</a></p>
+    <p><a href="https://asp.net"><img src="~/Icons/star-fill.svg" alt="ASP.NET" width="32" height="32" title="ASP.NET"></a></p>*@
 
 
     @*FAS (Font Awesome) -ikonit*@
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg fas fa-car"> ASP.NET-sivut</a></p>
-    <h1><a href="https://asp.net" class="fas fa-car" title="ASP.NET-sivut"></a></h1>
+    <!--<p><a href="https://asp.net" class="btn btn-primary btn-lg fas fa-car"> ASP.NET-sivut</a></p>
+    <h1><a href="https://asp.net" class="fas fa-car" title="ASP.NET-sivut"></a></h1>-->
 
     @*Modal -tyyppisen ikkunan avauspainike*@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LoginRuutu">Avaa Modal-ikkuna</button>
-
-    @*Modal -tyyppisen ikkunan koodiesimerkki*@
-    <div class="modal" id="LoginRuutu">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1>Kirjautuminen Northwind-järjestelmään</h1>
-                </div>
-                <div class="modal-body">
-                    @using (Html.BeginForm("Authorize", "Home", FormMethod.Post, new { id = "loginForm" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="form-horizontal">
-                            <h4>Logins</h4>
-                            <hr />
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(model => model.LoginId)
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.PassWord, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.PassWord, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <label class="text-danger">
-                                @Html.DisplayFor(model => model.LoginErrorMessage)
-                            </label>
-
-                        </div>
-                    }
-                </div>
-                <div class="modal-footer">
-                    <div>
-                        @*Formin lähettävä button, joka ei kuitenkaan ole formin sisällä, mutta viittaa formin ID:hen*@
-                        <button type="submit" class="btn btn-primary" form="loginForm"><i class="fas fa-check"></i></button>
-                        @*Kontrollerin kutsu Url.Action -komennolla, jotta peruuttaminen johtaa alkutilanteeseen*@
-                        <a href="@Url.Action("Index", "Home")" class="btn btn-primary"><i class="fas fa-times"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
-
+@{ 
+    Html.RenderPartial("_LoginModal");
+}
