@@ -1506,6 +1506,7 @@
     <Content Include="Views\Shared\_NavbarLoggedIn.cshtml" />
     <Content Include="Views\Shared\_NavbarLoggedOut.cshtml" />
     <Content Include="Views\Home\_LoginModal.cshtml" />
+    <Content Include="Views\Orders\TilausOtsikot.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
