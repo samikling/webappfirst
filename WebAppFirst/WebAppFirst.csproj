@@ -199,6 +199,7 @@
     <Compile Include="Models\Territories.cs">
       <DependentUpon>NorthwindModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\OrderRows.cs" />
     <Compile Include="ViewModels\OrderSummaryData.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1507,6 +1508,7 @@
     <Content Include="Views\Shared\_NavbarLoggedOut.cshtml" />
     <Content Include="Views\Home\_LoginModal.cshtml" />
     <Content Include="Views\Orders\TilausOtsikot.cshtml" />
+    <Content Include="Views\Orders\_TilausRivit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

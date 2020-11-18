@@ -6,9 +6,27 @@
 @section scripts{
     <script type="text/javascript">
         $(function () {
+            //Tämä JQuery-funktio kuuntelee html-elementtien
+            //klikkauksia, joiden luokka on = showOrderClass
             $(".showOrderClass").click(function () {
                 let orderId = $(this).data("orderid");
-                //alert("Klikkasit tilausnumeroa: " + orderId);
+
+                //Luodaan kontrollerin url-viittaus
+                var url = "/Orders/_TilausRivit/?OrderID=" + orderId;
+                $("orderDetails_" + orderId).append(" <b>Ladataan tilauksen " + orderId + " rivejä...</b>");
+
+                //Otetaan klikatun tilausotsikkorivin id
+                //talteen JQuery-muuttujaan $detailDiv
+                var $detailDiv = $("#orderDetails_" + orderId);
+                console.log(url);
+                console.log($detailDiv);
+
+                //Tehdään kontrollerin kutsu
+                $.get(url, function (data) {
+                    //Korvataan $detailDIv-muuttujan elementin sisältö 
+                    //kontrollerin palauttamalla partial view:llä
+                    $detailDiv.replaceWith(data);
+                });
             });
         });
     </script>

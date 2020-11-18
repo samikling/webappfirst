@@ -74,6 +74,40 @@ namespace WebAppFirst.Controllers
             return View(orders.ToList()); 
         }
 
+        public ActionResult _TilausRivit(int? orderid)
+        {
+            var orderRowsList = from od in db.Order_Details 
+                               join p in db.Products on od.ProductID equals p.ProductID
+                               join c in db.Categories on p.CategoryID equals c.CategoryID
+                               where od.OrderID == orderid
+                               //orderby lause
+                               select new OrderRows
+                               {
+                                   OrderID = (int)od.OrderID,
+                                   ProductID = p.ProductID,
+                                   UnitPrice = (int)p.UnitPrice,
+                                   Quantity = (int)od.Quantity,
+                                   Discount = (float)od.Discount,
+                                   ProductName = p.ProductName,
+                                   SupplierID = (int)p.SupplierID,
+                                   CategoryID = (int)c.CategoryID,
+                                   QuantityPerUnit = p.QuantityPerUnit,
+                                   UnitsInStock = (int)p.UnitsInStock,
+                                   UnitsOnOrder = (int)p.UnitsOnOrder,
+                                   ReorderLevel = (int)p.ReorderLevel,
+                                   Discontinued = p.Discontinued,
+                                   ImageLink = p.ImageLink,
+                                   CategoryName = c.CategoryName,
+                                   Description = c.Description,
+                                   //Picture = (Image)c.Picture
+
+
+
+
+                               };
+            return PartialView(orderRowsList);
+        }
+
         public ActionResult Index(string sortOrder,string searchString1, string currentFilter1, int? page, int? pagesize,string ShipperCategory, string currentShipperCategory)
         {   //Lajittelu
             ViewBag.CurrentSort = sortOrder;
