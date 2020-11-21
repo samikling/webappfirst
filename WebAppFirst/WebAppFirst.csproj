@@ -1509,6 +1509,9 @@
     <Content Include="Views\Home\_LoginModal.cshtml" />
     <Content Include="Views\Orders\TilausOtsikot.cshtml" />
     <Content Include="Views\Orders\_TilausRivit.cshtml" />
+    <Content Include="Views\Orders\_ModalEdit.cshtml" />
+    <Content Include="Views\Orders\_ModalCreate.cshtml" />
+    <Content Include="Views\Orders\_ModalDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -270,6 +270,32 @@ namespace WebAppFirst.Controllers
             return View();
         }
 
+        public ActionResult _ModalCreate()
+        {
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "CompanyName");
+            ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "LastName");
+            ViewBag.ShipVia = new SelectList(db.Shippers, "ShipperID", "CompanyName");
+            return PartialView();
+        }
+
+        // GET: Orders/Edit/5
+        public ActionResult _ModalEdit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Orders orders = db.Orders.Find(id);
+            if (orders == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "CompanyName", orders.CustomerID);
+            ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "LastName", orders.EmployeeID);
+            ViewBag.ShipVia = new SelectList(db.Shippers, "ShipperID", "CompanyName", orders.ShipVia);
+            return PartialView("_ModalEdit", orders);
+        }
+
         // POST: Orders/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -291,29 +317,30 @@ namespace WebAppFirst.Controllers
         }
 
         // GET: Orders/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Orders orders = db.Orders.Find(id);
-            if (orders == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "CompanyName", orders.CustomerID);
-            ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "LastName", orders.EmployeeID);
-            ViewBag.ShipVia = new SelectList(db.Shippers, "ShipperID", "CompanyName", orders.ShipVia);
-            return View(orders);
-        }
-
-        // POST: Orders/Edit/5
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Orders orders = db.Orders.Find(id);
+        //    if (orders == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "CompanyName", orders.CustomerID);
+        //    ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "LastName", orders.EmployeeID);
+        //    ViewBag.ShipVia = new SelectList(db.Shippers, "ShipperID", "CompanyName", orders.ShipVia);
+        //    return View(orders);
+        //}
+       
+      
+     
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry")] Orders orders)
+        public ActionResult NotModalEdit([Bind(Include = "OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry")] Orders orders)
         {
             if (ModelState.IsValid)
             {
@@ -326,6 +353,20 @@ namespace WebAppFirst.Controllers
             ViewBag.ShipVia = new SelectList(db.Shippers, "ShipperID", "CompanyName", orders.ShipVia);
             return View(orders);
         }
+        public ActionResult Edit([Bind(Include = "OrderID,CustomerID,EmployeeID,OrderDate,RequiredDate,ShippedDate,ShipVia,Freight,ShipName,ShipAddress,ShipCity,ShipRegion,ShipPostalCode,ShipCountry")] Orders orders)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(orders).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "CompanyName", orders.CustomerID);
+            ViewBag.EmployeeID = new SelectList(db.Employees, "EmployeeID", "LastName", orders.EmployeeID);
+            ViewBag.ShipVia = new SelectList(db.Shippers, "ShipperID", "CompanyName", orders.ShipVia);
+            return PartialView("_ModalEdit", orders);
+        }
+
 
         // GET: Orders/Delete/5
         public ActionResult Delete(int? id)
@@ -352,6 +393,53 @@ namespace WebAppFirst.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult _ModalDelete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Orders orders = db.Orders.Find(id);
+            if (orders == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_ModalDelete", orders);
+        }
+
+        // POST: Orders/Delete/5
+        [HttpPost, ActionName("_ModalDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult _ModalDeleteConfirmed(int id)
+        {
+            Orders orders = db.Orders.Find(id);
+            db.Orders.Remove(orders);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteFromJQuery(string id)
+        {
+            NorthwindEntities db = new NorthwindEntities();
+            int iid = int.Parse(id);
+            // etsitään id:n perusteella asiakasrivi kannasta
+            bool OK = false;
+            Orders dbItem = (from o in db.Orders
+                             where o.OrderID == iid
+                             select o).FirstOrDefault();
+            if (dbItem != null)
+            {
+                // tietokannasta poisto
+                db.Orders.Remove(dbItem);
+                db.SaveChanges();
+                OK = true;
+            }
+            db.Dispose();
+
+            return Json(OK, JsonRequestBehavior.AllowGet);
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {
