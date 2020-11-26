@@ -42,7 +42,7 @@ namespace WebAppFirst.Controllers
             }
             //Viedään tiedot String-muuttujiin
             categoryNameList = "'" + string.Join("','", CategorySalesList.Select(n => n.CategoryName).ToList()) + "'";
-            categorySalesList = string.Join("','", CategorySalesList.Select(n => n.CategorySales).ToList());
+            categorySalesList = string.Join(",", CategorySalesList.Select(n => n.CategorySales).ToList());
 
             //Viedään tiedot ViewBagiin
             ViewBag.categoryName = categoryNameList;
