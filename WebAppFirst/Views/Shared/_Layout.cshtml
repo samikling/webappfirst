@@ -3,69 +3,50 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - versio 0.5</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/Home/Index">EvilDB Corp.ltd (@ViewBag.LoggedStatus)</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    
+   @{ 
+       if (Session["UserName"] == null)
+       {
+           Html.RenderPartial("_NavbarLoggedOut");
+       }
+       else
+       {
+       
+           Html.RenderPartial("_NavbarLoggedIn");
 
-        <div class="collapse navbar-collapse" id="navbarColor02">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/Home/Index">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-link" href="/Home/Login">Login<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Company Info</a>
-                    <div class="dropdown-menu" style="">
-                        <a class="dropdown-item" href="/Home/About">About</a>
-                        <a class="dropdown-item" href="/Home/Contact">Contact</a>
-                        <a class="dropdown-item" href="/Home/Map">Map</a>
+       }
+   }
 
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Database</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/Products">Products</a>
-                        <a class="dropdown-item" href="/Shippers">Shippers</a>
-                    </div>
-                </li>
-            </ul>
 
-        </div>
-    </nav>
-    <div class="container body-content">
+    @*<div class="container body-content">*@
+    <div class="container-fluid">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Northwind-sovellus Working Demo</p>
+        <footer class="oma-footer">
+            @using System.Globalization
+            @{
+                string loggausInfo = "";
+                if (Session["UserName"] == null)
+                {
+                    loggausInfo = "Et ole kirjautunut järjestelmään";
+                }
+                else
+                {
+                    loggausInfo = "Olet kirjatunut käyttäjänä: " + Session["UserName"];
+                }
+            }
+            <p>&copy; Careeria Northwind-sovellus, @loggausInfo, tänään on @DateTime.Today.ToString("D", CultureInfo.CreateSpecificCulture("fi-FI"))</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/chart")
     @RenderSection("scripts", required: false)
-
-@*<script>
-    if (LoggedUser != null) {
-        ViewBag.LoginMessage = "Successfull login";
-        ViewBag.LoggedStatus = "In";
-        Session["UserName"] = LoggedUser.UserName;
-        return RedirectToAction("Index", "Home"); //Määritellään mihin kirjautuminen johtaa --> Home/Index
-    }
-    else {
-        ViewBag.LoginMessage = "Login unsuccessfull";
-        ViewBag.LoggedStatus = "Out";
-        LoginModel.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana.";
-        return View("Login", LoginModel);
-    }
-</script>*@
-
 </body>
 </html>

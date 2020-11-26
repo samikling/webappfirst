@@ -6,7 +6,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebAppFirst.Models;
+using WebAppFirst.ViewModels;
 using PagedList;
+using System.Data.Entity.SqlServer;
+
 namespace WebAppFirst.Controllers
 {
     public class ProductsController : Controller
@@ -184,6 +187,26 @@ namespace WebAppFirst.Controllers
                 if (tuote == null) return HttpNotFound(); //Jos vastaavuutta ei löydy, palautetaan sivua ei löydy virhe.
                 return View(tuote);
             }
+        }
+        //Modaali graafi tuotteen kokonaismyynnille
+        public ActionResult _ProductSalesPerDate(string productName)
+        {
+            if (String.IsNullOrEmpty(productName)) productName = "Lakkalikööri";
+
+            List<DailyProductSales> dailyproductsalesList = new List<DailyProductSales>();
+
+            var orderSummary = from pds in db.ProductsDailySales
+                               where pds.ProductName == productName
+                               orderby pds.OrderDate
+                               select new DailyProductSales
+                               {
+                                   OrderDate = SqlFunctions.DateName("year", pds.OrderDate) + "." + SqlFunctions.DateName("MM", pds.OrderDate) + "." + SqlFunctions.DateName("day", pds.OrderDate),
+                                   DailySales = (float)pds.DailySales,
+                                   ProductName = pds.ProductName
+                               };
+
+
+            return Json(orderSummary, JsonRequestBehavior.AllowGet);
         }
     }
 }

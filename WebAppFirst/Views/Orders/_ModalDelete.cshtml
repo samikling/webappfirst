@@ -1,0 +1,66 @@
+﻿@model WebAppFirst.Models.Orders
+
+@*Modal -tyyppisen ikkunan koodiesimerkki - modal koodi alkaa*@
+<h2>Delete order (modal)</h2>
+<div class="modal fade" id="ModalOrderDelete">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Are you sure you wanto to delete this order: @Html.DisplayFor(model => model.OrderID)?</h3>
+                <button class="btn btn-warning" onclick="deleteOrder(@Model.OrderID)"><i class="jquerydelete fas fa-trash-alt"></i></button>
+            </div>
+            <div class="modal-body">
+                @*Modal -tyyppisen ikkunan koodiesimerkki - alkuperäisen lomakkeen koodi alkaa*@
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p>@Html.DisplayNameFor(model => model.OrderDate)</p>
+                        <h6>@Html.DisplayFor(model => model.OrderDate)</h6>
+                        <p>@Html.DisplayNameFor(model => model.RequiredDate)</p>
+                        <h6>@Html.DisplayFor(model => model.RequiredDate)</h6>
+                        <p>@Html.DisplayNameFor(model => model.ShippedDate)</p>
+                        <h6>@Html.DisplayFor(model => model.ShippedDate)</h6>
+                        <p>@Html.DisplayNameFor(model => model.Freight)</p>
+                        <h6>@Html.DisplayFor(model => model.Freight)</h6>
+                        <p>@Html.DisplayNameFor(model => model.ShipName)</p>
+                        <h6>@Html.DisplayFor(model => model.ShipName)</h6>
+                        <p>@Html.DisplayNameFor(model => model.ShipAddress)</p>
+                        <h6>@Html.DisplayFor(model => model.ShipAddress)</h6>
+                        <p>@Html.DisplayNameFor(model => model.ShipCity)</p>
+                        <h6>@Html.DisplayFor(model => model.ShipCity)</h6>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <p>@Html.DisplayNameFor(model => model.ShipRegion)</p>
+                        <h6>@Html.DisplayFor(model => model.ShipRegion)</h6>
+                        <p>@Html.DisplayNameFor(model => model.ShipPostalCode)</p>
+                        <h6>@Html.DisplayFor(model => model.ShipPostalCode)</h6>
+                        <p>@Html.DisplayNameFor(model => model.ShipCountry)</p>
+                        <h6>@Html.DisplayFor(model => model.ShipCountry)</h6>
+                        <p>@Html.DisplayNameFor(model => model.Customers.CompanyName)</p>
+                        <h6>@Html.DisplayFor(model => model.Customers.CompanyName)</h6>
+                        <p>@Html.DisplayNameFor(model => model.Employees.LastName)</p>
+                        <h6>@Html.DisplayFor(model => model.Employees.LastName)</h6>
+                        <p>@Html.DisplayNameFor(model => model.Shippers.CompanyName)</p>
+                        <h6>@Html.DisplayFor(model => model.Shippers.CompanyName)</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                @*Olettaa, että lähettää samaan osoitteeseen, mistä pyyntö on alunperin tullut, ellei BeginFormissa vaadita muuta (vrt edit!)*@
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <button type="submit" value="Delete" class="btn btn-primary"><i class="fas fa-trash-alt"></i></button>
+                        <a href="@Url.Action("Index", "Orders")" class="btn btn-primary"><i class="fas fa-times"></i></a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+

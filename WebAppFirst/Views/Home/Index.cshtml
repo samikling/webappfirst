@@ -1,61 +1,165 @@
-﻿@using System.Globalization
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-@{
-    ViewBag.Title = "Mvc Web App";
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+@*JQuery, joka suoritetaan aina, kun sivu latautuu*@
+@section scripts {
+    <script type="text/javascript">
+        $(window).on('load', function () {
+            if (@ViewBag.LoginError == 1) {
+                $('#LoginRuutu').modal('show');
+            }
+
+        });
+
+        //Chart
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        var ctx2 = document.getElementById('myChart2').getContext('2d');
+        var myChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        var ctx3 = document.getElementById('myChart3').getContext('2d');
+        var myChart3 = new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 }
 
 <div class="jumbotron">
-    <h1>Northwind demo app</h1>
-    <p class="lead">Tämä on Northwind-sovelluksen working demo.</p>
-    <!-- Button to Open the Modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-        Login
-    </button>
-
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Login</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    Kirjaudu sisään
-                   <div class="form-group">
-                         <label for="usr">Name:</label>
-                         <input type="text" class="form-control" id="usr">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" id="pwd">
-                    </div>
-
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger fa fa-key" data-dismiss="modal">    Login</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
+    <h2>Minun ensimmäinen ASP.NET-sovellus</h2>
+    @*BS4/SVG -ikonit*@
+    @*<p><a href="https://asp.net" class="btn btn-primary btn-lg"><img src="~/Icons/star-fill.svg" alt="ASP.NET" width="32" height="32" title="ASP.NET"> ASP.NET-sivut &raquo;</a></p>
+        <p><a href="https://asp.net"><img src="~/Icons/star-fill.svg" alt="ASP.NET" width="32" height="32" title="ASP.NET"></a></p>*@
+    
+    
+    @*Chartin Renderöinti*@
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="col-sm-4">
+                <canvas id="myChart2"></canvas>
+            </div>
+            <div class="col-sm-4">
+                <canvas id="myChart3"></canvas>
             </div>
         </div>
+
     </div>
-    <br />
-    <br />
-    <p><a href="https://www.asp.net" class="btn-primary btn-lg"><img src="~/Icons/building.svg" alt="ASP.NET" width="32" height="32" title="ASP.NET">ASP.NET-sivut</a></p>
-    <p><a href="https://www.asp.net"> <img src="~/Icons/building.svg" alt="ASP.NET" width="32" height="32" title="ASP.NET"></a></p>
 
-    <p><a href="https://www.asp.net" class="btn-primary btn-lg fa fa-car">ASP.NET-sivut</a></p>
-    <p><a href="https://www.asp.net" class="fa fa-car" title="ASP.NET"></a></p>
-
-
-    <p>Nyt on @DateTime.Now</p>
-    <p>Nyt on @DateTime.Now.ToString(new CultureInfo("en-US"))</p>
+    @*FAS (Font Awesome) -ikonit*@
+    <!--<p><a href="https://asp.net" class="btn btn-primary btn-lg fas fa-car"> ASP.NET-sivut</a></p>
+    <h1><a href="https://asp.net" class="fas fa-car" title="ASP.NET-sivut"></a></h1>-->
+    @*Modal -tyyppisen ikkunan avauspainike*@
+    @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LoginRuutu">Avaa Modal-ikkuna</button>*@
 </div>
-
+@{
+    Html.RenderPartial("_LoginModal");
+}
