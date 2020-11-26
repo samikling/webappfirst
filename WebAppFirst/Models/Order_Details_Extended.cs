@@ -11,16 +11,15 @@ namespace WebAppFirst.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
-    public partial class Logins
+    public partial class Order_Details_Extended
     {
-        public int LoginId { get; set; }
-        [Required(ErrorMessage = "Anna käyttäjätunnus!")]
-        public string UserName { get; set; }
-        [DataType(DataType.Password)]
-        [Required(ErrorMessage = "Anna salasana!")]
-        public string PassWord { get; set; }
-        public string LoginErrorMessage { get; set; }
+        public int OrderID { get; set; }
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
+        public decimal UnitPrice { get; set; }
+        public short Quantity { get; set; }
+        public float Discount { get; set; }
+        public Nullable<decimal> ExtendedPrice { get; set; }
     }
 }
