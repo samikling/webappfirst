@@ -1,14 +1,80 @@
 ﻿@model PagedList.IPagedList<WebAppFirst.Models.Products>
 @using PagedList.Mvc;
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" />
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <!--Tämä on jQueryä-->
 @section scripts {
     <script type="text/javascript">
+
+        //import { data } from "jquery";
         $("#singleSelectedCategoryID").on("change", function () {
             //Getting value
             var selValue = $("#singleSelectedCategoryID").val();
             document.getElementById("ProductCategory").value = selValue;
         });
+
+        //Tuotteen myynti kaavio
+        $(function () {
+            $(".getProductName").click(function (){
+                let productName = $(this).data("productname");
+                //alert(productName);
+                drawLineChart(productName);
+            })
+        }); 
+
+        function drawLineChart(productName) {
+            let url = "Products/_ProductSalesPerDate/?productName=" + productName;
+            var jsonData = $.ajax({
+                url: url,
+                dataType: 'json',
+            }).done(function (results) {
+                console.log(results);
+                //Split timestamps and data into separate arrays
+                var salesLabels = [], salesData = [];
+                for (let i = 0; i < results.length; i++) {
+                    salesData.push(results[i].DailySales);
+                    salesLabels.push(results[i].OrderDate);
+                }
+                renderChart(salesData, salesLabels, productName);
+            })
+        }
+
+        //Kaavion renderöinti
+        function renderChart(dataValues, labelTexts, productName) {
+            var ctx = document.getElementById('barcanvas').getContext('2d');
+            var barcanvas = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labelTexts,
+                    datasets: [{
+                        label: 'Daily product sales for ' + productName,
+                        data: dataValues,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                stepSize: 100
+                            }
+                        }]
+                    }
+                }
+            });
+            $('#ProductSalesPerDateModal').modal('show');
+        }
+
+
+
+
     </script>
     
     }
@@ -41,6 +107,7 @@
 
 <table class="table">
     <tr>
+        <th></th>
         <th>
             @Html.ActionLink("Tuotteen nimi", "Index", new { sortOrder = ViewBag.ProductNameSortParm, currentFilter1 = ViewBag.currentFilter1, currentProductCategory = ViewBag.currentProductCategory })@*(model => model.ProductName)*@
         </th>
@@ -76,6 +143,7 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td><button class="btn-dark getProductName fas fa-chart-bar" style="border-radius: 4px;" data-productname="@item.ProductName"></button></td>
         <td>
             @Html.DisplayFor(modelItem => item.ProductName)
         </td>
@@ -120,3 +188,7 @@
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter1 = ViewBag.currentFilter1, currentProductCategory = ViewBag.currentProductCategory}))
+
+@{ 
+    Html.RenderPartial("_ProductSalesPerDate");
+}

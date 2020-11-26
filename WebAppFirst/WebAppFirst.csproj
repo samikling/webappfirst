@@ -252,6 +252,7 @@
       <DependentUpon>NorthwindModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CategorySalesClass.cs" />
+    <Compile Include="ViewModels\DailyProductSales.cs" />
     <Compile Include="ViewModels\OrderRows.cs" />
     <Compile Include="ViewModels\OrderSummaryData.cs" />
   </ItemGroup>
@@ -1570,6 +1571,7 @@
     <Content Include="Views\Orders\_ModalCreate.cshtml" />
     <Content Include="Views\Orders\_ModalDelete.cshtml" />
     <Content Include="Views\Statistics\CategorySales.cshtml" />
+    <Content Include="Views\Products\_ProductSalesPerDate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
